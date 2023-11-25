@@ -139,6 +139,8 @@ export default {
         this.all_skills.splice(index, 1);
       }
     },
+
+    
     saveSettings() {
       this.addGrades(this.gradesSettings);
     },

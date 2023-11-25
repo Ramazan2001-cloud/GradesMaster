@@ -24,7 +24,6 @@
         />    
       </div>
 
-
       <div class="grades-list grades-list" v-if="gradesData?.specialization?.list?.length" :style="{background: '#fff', padding: '24px', gap: '20px'}">
 
         <div class="default__title mb-20">
@@ -36,10 +35,19 @@
             {{  item.name }}
           </div>
           <a-input
+            v-model="item.points"
+            type="number"
             class="width-320 mb-20"
+            @input="countNumber"
+            :max="10"
+            :min="1"
           />
         </div>
 
+      </div>
+
+      <div v-if="active" class="default__descr" :style="{background: '#fff', padding: '24px', gap: '20px'}"> 
+        Бал : {{ sum }}
       </div>
 
       <div :style="{ background: '#fff', padding: '24px', height: 'auto'}">
@@ -61,12 +69,26 @@
     components: {
       TheHeader,
     },
+ 
     methods: {
       ...mapGetters('getGradesSettings'),
-  },
+      countNumber(value) {
+
+        this.sum = this.sum + (+value.data);
+        console.log('value.srcElement._value', )
+      },
+      saveSettings() {
+        this.active = true;
+        console.log('sum', this.sum);
+        
+        // Здесь вы можете использовать totalPoints как угодно, например, сохранить его в хранилище Vuex или вывести на экран.
+      },
+    },
   data() {
     return {
-         gradesData: null,
+      gradesData: null,
+      sum: 0,
+      active: null,
       }
     },
     watch: {
